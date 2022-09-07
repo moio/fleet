@@ -10,7 +10,7 @@ RUN if [ "${ARCH}" = "amd64" ]; then \
     fi
 RUN curl -sL https://get.helm.sh/helm-v3.3.0-linux-${ARCH}.tar.gz | tar xvzf - -C /usr/local/bin --strip-components=1
 
-ENV DAPPER_ENV REPO TAG DRONE_TAG CROSS
+ENV DAPPER_ENV REPO TAG DRONE_TAG CROSS DEBUG
 ENV DAPPER_SOURCE /go/src/github.com/rancher/fleet/
 ENV DAPPER_OUTPUT ./bin ./dist
 ENV DAPPER_DOCKER_SOCKET true
