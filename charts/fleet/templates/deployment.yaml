@@ -34,13 +34,14 @@ spec:
         - --debug
         - --debug-level
         - {{ quote .Values.debugLevel }}
+        {{- else }}
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
         {{- end }}
         {{- if not .Values.gitops.enabled }}
         - --disable-gitops
         {{- end }}
-        securityContext:
-          allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
       serviceAccountName: fleet-controller
       nodeSelector: {{ include "linux-node-selector" . | nindent 8 }}
 {{- if .Values.nodeSelector }}
@@ -50,7 +51,9 @@ spec:
 {{- if .Values.tolerations }}
 {{ toYaml .Values.tolerations | indent 8 }}
 {{- end }}
+{{- if not .Values.debug }}
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
+{{- end }}
