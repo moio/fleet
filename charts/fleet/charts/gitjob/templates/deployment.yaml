@@ -35,6 +35,10 @@ spec:
             - name: NO_PROXY
               value: {{ .Values.noProxy }}
           {{- end }}
+          {{- if .Values.debug }}
+            - name: CATTLE_DEV_MODE
+              value: "true"
+          {{- end }}
       nodeSelector: {{ include "linux-node-selector" . | nindent 8 }}
 {{- if .Values.nodeSelector }}
 {{ toYaml .Values.nodeSelector | indent 8 }}
