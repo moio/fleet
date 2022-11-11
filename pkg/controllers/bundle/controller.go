@@ -335,7 +335,7 @@ func (h *handler) calculateChanges(status *fleet.BundleStatus, allTargets []*tar
 			if target.Deployment != nil {
 				// NOTE merged options from targets.Targets() are set to be staged
 				if !equality.Semantic.DeepEqual(target.Deployment.Spec.StagedOptions, target.Options) ||
-					equality.Semantic.DeepEqual(target.Deployment.Spec.StagedDeploymentID, target.DeploymentID) {
+					!equality.Semantic.DeepEqual(target.Deployment.Spec.StagedDeploymentID, target.DeploymentID) {
 
 					target.Deployment.Spec.StagedOptions = target.Options
 					target.Deployment.Spec.StagedDeploymentID = target.DeploymentID
